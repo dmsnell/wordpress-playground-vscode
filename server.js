@@ -130,6 +130,28 @@ async function runWordPressServer(workspacePath, requestedPort) {
         }
     );
 
+    if (workspacePath) {
+        const muPluginsPath = path.join(workspacePath, 'mu-plugins');
+        if (fs.existsSync(muPluginsPath)) {
+            php.mkdirTree('/wordpress/wp-content/mu-plugins/');
+            php.mount({ root: muPluginsPath }, '/wordpress/wp-content/mu-plugins/');
+        }
+
+        const pluginsPath = path.join(workspacePath, 'plugins');
+        if (fs.existsSync(pluginsPath)) {
+            fs
+                .readdirSync(pluginsPath, {withFileTypes: true})
+                .filter(dirent => dirent && dirent.isDirectory)
+                .forEach(dirent => {
+                    php.mkdirTree(`/wordpress/wp-content/plugins/${ dirent.name }/`);
+                    php.mount(
+                        { root: path.join(pluginsPath, dirent.name) },
+                        `/wordpress/wp-content/plugins/${ dirent.name }/`
+                    );
+                })
+        }
+    }
+
     await php.request({
         url: '/wp-admin/install.php?step=2',
         method: 'POST',
