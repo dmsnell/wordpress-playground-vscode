@@ -146,7 +146,7 @@ async function runWordPressServer(workspacePath, requestedPort) {
         }
     });
 
-    const { login } = await import('@wp-playground/client');
+    const { login } = require('@wp-playground/client');
     await login(php, 'admin', 'password');
 
     app.use('/', async (req, res) => {

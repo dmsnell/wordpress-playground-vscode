@@ -4,7 +4,7 @@
   "description": "Embeds a WordPress installation in your your VS Code",
   "license": "dual (GPLv2 and MPLv2)",
   "publisher": "WordPressPlayground",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "engines": {
     "vscode": "^1.77.0"
   },
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@php-wasm/node": "^0.1.24",
-    "@wp-playground/client": "^0.1.23",
+    "@wp-playground/client": "^0.1.25",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "node-fetch": "^3.3.1"
